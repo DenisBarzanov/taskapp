@@ -10,38 +10,65 @@ var inputDecoration = InputDecoration(
 
 Widget getPasswordField({
   bool withSuffix = false,
+  bool obscureText = false,
+  void Function() obscureTextOnPressed,
   bool enabled = true,
+  TextEditingController controller,
+  String Function(String) validator,
 }) {
-  var passwordField = TextField(
-    decoration: inputDecoration.copyWith(
-      hintText: 'enter password',
-      suffixIcon: withSuffix
-          ? Icon(
-              Icons.visibility_off,
-            )
-          : null,
-      enabled: enabled,
-      fillColor: !enabled ? Colors.grey[500] : null,
-      filled: !enabled,
+  final decoration = inputDecoration.copyWith(
+    hintText: 'enter password',
+    suffixIcon: IconButton(
+      onPressed: obscureTextOnPressed,
+      icon: Icon(
+        obscureText ? Icons.visibility : Icons.visibility_off,
+        // color: Color(0xffbcc1c9),
+      ),
     ),
-    // readOnly: true,
+    enabled: enabled,
+    fillColor: !enabled ? Colors.grey[500] : null,
+    filled: !enabled,
   );
+  var passwordField = validator == null
+      ? TextField(
+          decoration: decoration,
+          controller: controller,
+          obscureText: obscureText,
+        )
+      : TextFormField(
+          decoration: decoration,
+          controller: controller,
+          validator: validator,
+          obscureText: obscureText,
+          // textInputAction: TextInputAction.next,
+        );
   return Opacity(
     opacity: enabled ? 1 : 0.5,
     child: passwordField,
   );
 }
 
-Widget getEmailField({bool enabled = true}) {
-  var emailField = TextField(
-    decoration: inputDecoration.copyWith(
-      hintText: 'e.g. johndoe@mail.com',
-      enabled: enabled,
-      fillColor: !enabled ? Colors.grey[500] : null,
-      filled: !enabled,
-    ),
+Widget getEmailField({
+  bool enabled = true,
+  TextEditingController controller,
+  String Function(String) validator,
+}) {
+  final decoration = inputDecoration.copyWith(
+    hintText: 'e.g. johndoe@mail.com',
     enabled: enabled,
+    fillColor: !enabled ? Colors.grey[500] : null,
+    filled: !enabled,
   );
+  var emailField = validator == null
+      ? TextField(
+          decoration: decoration,
+          controller: controller,
+        )
+      : TextFormField(
+          decoration: decoration,
+          controller: controller,
+          validator: validator,
+        );
   return Opacity(
     opacity: enabled ? 1 : 0.5,
     child: emailField,

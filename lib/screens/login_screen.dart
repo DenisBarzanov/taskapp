@@ -1,12 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:taskapp/screens/cubit/profile_cubit.dart';
 
 import 'common_login_screen.dart';
+import 'cubit/login_cubit.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-class LoginScreen extends StatelessWidget {
-  const LoginScreen({Key key}) : super(key: key);
+class LoggedInScreen extends StatelessWidget {
+  const LoggedInScreen({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final state = context.bloc<ProfileCubit>().state;
+    final emailController = TextEditingController(
+        text: state is ProfileLoadedState ? state.user.email : '');
+    final passwordController = TextEditingController(
+        text: state is ProfileLoadedState ? state.user.password : '');
     const profileHeight = 80.0;
     var lightTextStyle = TextStyle(color: Colors.grey[600]);
     var profileWidget = Column(
@@ -59,6 +67,10 @@ class LoginScreen extends StatelessWidget {
       actionButtonOnPressed: () {
         Navigator.of(context).pop();
       },
+      emailController: emailController,
+      passwordController: passwordController,
+      obscureText: true,
+      obscureTextOnPressed: () {},
     );
   }
 }

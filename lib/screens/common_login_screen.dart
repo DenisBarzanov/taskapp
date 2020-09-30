@@ -8,6 +8,10 @@ Widget buildLoginScreen(
   @required String actionButtonText,
   void Function() actionButtonOnPressed,
   bool enableEmail = true,
+  TextEditingController emailController,
+  TextEditingController passwordController,
+  bool obscureText = false,
+  void Function() obscureTextOnPressed,
 }) {
   return Scaffold(
     appBar: appBar(context),
@@ -20,13 +24,21 @@ Widget buildLoginScreen(
             constraints: BoxConstraints(minHeight: 132),
             child: profileWidget,
           ),
-          Text('Email'),
-          getEmailField(enabled: enableEmail),
           Padding(
-            padding: const EdgeInsets.only(top: 15.0),
+            padding: const EdgeInsets.only(bottom: 4.0),
+            child: Text('Email'),
+          ),
+          getEmailField(enabled: enableEmail, controller: emailController),
+          Padding(
+            padding: const EdgeInsets.only(bottom: 4.0, top: 20.0),
             child: Text('Password'),
           ),
-          getPasswordField(enabled: false),
+          getPasswordField(
+            enabled: false,
+            controller: passwordController,
+            obscureText: obscureText,
+            obscureTextOnPressed: obscureTextOnPressed,
+          ),
           FlatButton(
             textColor: Theme.of(context).buttonColor,
             child: Text('Change'),
