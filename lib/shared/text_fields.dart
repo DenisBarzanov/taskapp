@@ -6,8 +6,8 @@ var inputDecoration = InputDecoration(
     borderRadius: BorderRadius.circular(8),
     borderSide: BorderSide(style: BorderStyle.solid),
   ),
-  floatingLabelBehavior: FloatingLabelBehavior.always,
 );
+
 Widget getPasswordField({
   bool withSuffix = false,
   bool enabled = true,
@@ -22,7 +22,7 @@ Widget getPasswordField({
           : null,
       enabled: enabled,
       fillColor: !enabled ? Colors.grey[500] : null,
-      filled: true,
+      filled: !enabled,
     ),
     // readOnly: true,
   );
@@ -32,6 +32,18 @@ Widget getPasswordField({
   );
 }
 
-var emailField = TextField(
-  decoration: inputDecoration.copyWith(hintText: 'e.g. johndoe@mail.com'),
-);
+Widget getEmailField({bool enabled = true}) {
+  var emailField = TextField(
+    decoration: inputDecoration.copyWith(
+      hintText: 'e.g. johndoe@mail.com',
+      enabled: enabled,
+      fillColor: !enabled ? Colors.grey[500] : null,
+      filled: !enabled,
+    ),
+    enabled: enabled,
+  );
+  return Opacity(
+    opacity: enabled ? 1 : 0.5,
+    child: emailField,
+  );
+}

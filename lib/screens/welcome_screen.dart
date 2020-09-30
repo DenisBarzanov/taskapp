@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:taskapp/shared/landing_text_style.dart';
 import 'package:taskapp/shared/text_fields.dart';
 
 class WelcomeScreen extends StatelessWidget {
@@ -25,14 +26,11 @@ class WelcomeScreen extends StatelessWidget {
               padding: const EdgeInsets.only(bottom: 40, top: 100),
               child: Text(
                 'Welcome',
-                style: TextStyle(
-                  fontSize: 30,
-                  fontWeight: FontWeight.w300,
-                ),
+                style: landingTextStyle,
               ),
             ),
             Text('Email'),
-            emailField,
+            getEmailField(),
             Padding(
               padding: const EdgeInsets.only(top: 30.0),
               child: Text('Password'),
@@ -48,7 +46,7 @@ class WelcomeScreen extends StatelessWidget {
                 onPressed: () {
                   Navigator.of(context).pushNamed('/login');
                 },
-                child: Text('Login'),
+                child: Text('Log in'),
               ),
             ),
             SizedBox(
@@ -93,7 +91,9 @@ class WelcomeScreen extends StatelessWidget {
                   color: grey,
                 ),
                 shape: roundedRectangleBorder,
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.of(context).pushNamed('/not-logged-in');
+                },
                 child: Text(
                   'Explore The App',
                   style: TextStyle(color: grey),
