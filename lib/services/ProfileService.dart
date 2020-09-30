@@ -11,7 +11,7 @@ class FakeProfileService implements ProfileService {
   static FakeProfileService _instance = FakeProfileService._internal();
   factory FakeProfileService() => _instance;
   Future<User> getProfile() async {
-    await Future.delayed(Duration(seconds: 2));
+    await Future.delayed(Duration(seconds: 1));
     // http request
     // get token from preferences and make a request
     // useless
@@ -19,7 +19,7 @@ class FakeProfileService implements ProfileService {
   }
 
   Future<void> logout() async {
-    await Future.delayed(Duration(seconds: 2));
+    await Future.delayed(Duration(seconds: 1));
     // userController.sink.add(null);
   }
 }
